@@ -1,0 +1,16 @@
+{
+  "name": "fintech-tool-calling-lesson",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "tsx src/settlement-lesson.ts",
+    "test": "tsx --test src/ledger-tools.test.ts"
+  },
+  "dependencies": {
+    "openai": "^4.0.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0"
+  }
+}
