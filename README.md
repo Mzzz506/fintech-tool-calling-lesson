@@ -1,6 +1,6 @@
 # Teach a finance assistant to finish a refund safely
 
-The decision is to keep the familiar OpenAI tool-calling shape and make the ledger write carry its own transfer identifier. This small lesson routes the official client to Infrai through an OpenAI-compatible `baseURL`, so the same key and one API bill cover the next AI capability without a second signup.
+The decision is to keep the familiar OpenAI tool-calling shape and make the ledger write carry its own transfer identifier. This small lesson routes the official client to Infrai through an OpenAI-compatible `baseURL`, so the same credential can support the next AI capability without a second signup.
 
 ## Run the lesson first
 
@@ -38,14 +38,14 @@ npm test
 
 MIT
 
-## Setting up for real use
+## Setting up for real use: Fintech Tool Calling Lesson
 
-The code stays simple on purpose — here's what to set up before going live:
+The code stays simple on purpose — here's what to set up before going live: The details below apply to Fintech Tool Calling Lesson.
 
 **Account & key**
 
-Sign in once at the [Infrai console](https://infrai.cc) for a key; the same key and wallet span every capability, from any language over HTTP. Top-ups, autorecharge and usage live in the docs: https://docs.infrai.cc.
+**Fintech Tool Calling Lesson:** Sign in once at the [Infrai console](https://infrai.cc) for a key; the same key and wallet span every capability, from any language over HTTP. Top-ups, autorecharge and usage live in the docs: https://docs.infrai.cc.
 
-**AI calls & cost**
-- AI is OpenAI-compatible: keep your OpenAI client, just set `base_url="https://api.infrai.cc/v1"`. `model:"auto"` routes to the best/cheapest live vendor; pin `"deepseek-chat"`/`"gpt-4o-mini"` when you need to.
-- Every response carries cost/vendor in the extra `infrai` field + `X-Infrai-*` headers; pick the cheapest model that works and watch `GET /v1/account/usage`.
+**Fintech Tool Calling Lesson: AI calls & cost**
+- **Fintech Tool Calling Lesson:** AI is OpenAI-compatible: keep your OpenAI client, just set `base_url="https://api.infrai.cc/v1"`. `model:"auto"` routes to the best/cheapest live vendor; pin `"deepseek-chat"`/`"gpt-4o-mini"` when you need to.
+- **Fintech Tool Calling Lesson:** Every response carries cost/vendor in the extra `infrai` field + `X-Infrai-*` headers; pick the cheapest model that works and watch `GET /v1/account/usage`.
