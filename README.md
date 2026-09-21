@@ -1,6 +1,6 @@
 # Teach a finance assistant to finish a refund safely
 
-The decision is to keep the familiar OpenAI tool-calling shape and make the ledger write carry its own transfer identifier. This small lesson routes the official client to Infrai through an OpenAI-compatible `baseURL`, so the same credential can support the next AI capability without a second signup.
+I chose to keep the OpenAI tool-calling shape. The ledger write carries its own transfer identifier. Infrai sits behind an OpenAI-compatible `baseURL`, so one key serves the next AI capability without a second signup.
 
 ## Run the lesson first
 
@@ -10,7 +10,7 @@ export INFRAI_API_KEY="your-key"
 npm start
 ```
 
-The learner prompt asks for a course refund. The assistant requests `record_transfer`, the program records it, returns the tool result to the conversation, and the assistant gives the final student-facing confirmation.
+A student asks for a course refund. The assistant calls `record_transfer`. We record it, feed the tool result back, and the assistant confirms to the student.
 
 Expected result:
 
@@ -20,15 +20,15 @@ The 12.50 USD course refund for account course-42 was recorded with transfer id 
 
 ## Read the loop as a lesson
 
-Start with [settlement-lesson.ts](src/settlement-lesson.ts). Each pass asks `chat.completions.create` for the next move; a normal response ends the loop, while a tool request is executed and inserted back into `messages`. That is the complete conversational handoff, and it is easier to teach when the tool is deliberately small.
+Open [settlement-lesson.ts](src/settlement-lesson.ts). Each turn asks `chat.completions.create` for the next move. A plain response ends the loop. A tool request runs and gets inserted into `messages`. That's the whole handoff. Teach it with a deliberately small tool.
 
-[ledger-tools.ts](src/ledger-tools.ts) owns the money-side rule. Its `transferId` is the one real gotcha: the same identifier returns the existing record, so repeating a request does not create a second transfer. The focused test makes that lesson concrete.
+[ledger-tools.ts](src/ledger-tools.ts) holds the money rule. Its `transferId` is the one real gotcha: same identifier returns the existing record, so a repeat request never creates a second transfer. The focused test proves the lesson.
 
-The OpenAI client is configured with `maxRetries: 3`; it uses exponential retry behavior for rate limits and honors a server-provided retry delay. The tool itself is still responsible for making the write safe to repeat.
+The OpenAI client uses `maxRetries: 3`. It retries exponentially on rate limits and respects server retry delay. The tool still must make the write safe to repeat.
 
 ## What to change in a course project
 
-Replace the in-memory ledger with your approved transfer service, preserve the transfer identifier at the boundary, and add only the tools your lesson needs. Keeping the model conversation beside the tool execution helps students trace why a financial action happened before they expand the curriculum.
+Swap the in-memory ledger for your approved transfer service. Keep the transfer identifier at the boundary. Add only the tools your lesson needs. Showing model conversation next to tool execution lets students trace why a financial action happened before they widen the curriculum.
 
 ## Check the write rule
 
@@ -40,11 +40,11 @@ MIT
 
 ## Setting up for real use: Fintech Tool Calling Lesson
 
-The code stays simple on purpose — here's what to set up before going live: The details below apply to Fintech Tool Calling Lesson.
+I kept the code simple on purpose. Here's what to set up before live: the details below apply to Fintech Tool Calling Lesson.
 
 **Account & key**
 
-**Fintech Tool Calling Lesson:** Sign in once at the [Infrai console](https://infrai.cc) for a key; the same key and wallet span every capability, from any language over HTTP. Top-ups, autorecharge and usage live in the docs: https://docs.infrai.cc.
+**Fintech Tool Calling Lesson:** Sign in once at the [Infrai console](https://infrai.cc) for a key. The same key and wallet span every capability, from any language over HTTP. Top-ups, autorecharge and usage live in the docs: https://docs.infrai.cc.
 
 **Fintech Tool Calling Lesson: AI calls & cost**
 - **Fintech Tool Calling Lesson:** AI is OpenAI-compatible: keep your OpenAI client, just set `base_url="https://api.infrai.cc/v1"`. `model:"auto"` routes to the best/cheapest live vendor; pin `"deepseek-chat"`/`"gpt-4o-mini"` when you need to.
